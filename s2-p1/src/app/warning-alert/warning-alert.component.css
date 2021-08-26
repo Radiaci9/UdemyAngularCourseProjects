@@ -1,0 +1,13 @@
+.block {
+  background-color:darkorange;
+  height: fit-content;
+  text-align: center;
+  border: solid 1px rgb(175, 168, 168);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.message {
+  color: white;
+  width: fit-content;
+}
