@@ -1,41 +1,43 @@
-<div class="row">
+<div *ngIf="recipe">
+  <div class="row">
   <div class="col-xs-12">
     <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 200px;">
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ recipe.name }}</h1>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div ngbDropdown>
-      <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdown">Manage Recipe</button>
-      <div ngbDropdownMenu aria-labelledby="dropdown">
-        <button ngbDropdownItem (click)="onAddToShoppingList()">To Shopping List</button>
-        <button ngbDropdownItem>Edit Recipe</button>
-        <button ngbDropdownItem>Delete Recipe</button>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ recipe.name }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div ngbDropdown>
+        <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdown">Manage Recipe</button>
+        <div ngbDropdownMenu aria-labelledby="dropdown">
+          <button ngbDropdownItem (click)="onAddToShoppingList()">To Shopping List</button>
+          <button ngbDropdownItem [routerLink]="['edit']">Edit Recipe</button>
+          <button ngbDropdownItem>Delete Recipe</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    {{ recipe.description }}
+  <div class="row">
+    <div class="col-xs-12">
+      {{ recipe.description }}
+    </div>
   </div>
-</div>
-<br>
-<div class="row">
-  <div class="col-xs-12">
-    Ingredients: 
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let ingredient of recipe.ingredients"
-      >
-        {{ ingredient.name }} - {{ ingredient.amount }}
-      </li>
-    </ul>
+  <br>
+  <div class="row">
+    <div class="col-xs-12">
+      Ingredients: 
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let ingredient of recipe.ingredients"
+        >
+          {{ ingredient.name }} - {{ ingredient.amount }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
