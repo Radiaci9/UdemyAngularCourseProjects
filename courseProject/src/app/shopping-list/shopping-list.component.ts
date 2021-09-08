@@ -18,4 +18,8 @@ export class ShoppingListComponent implements OnInit {
      (newIngredients: Ingredient[]) => this.ingredients = newIngredients
    )
   }
+
+  onEditItem (id: string) {
+    this.slService.editingIngredientId.next(id);
+  }
 }

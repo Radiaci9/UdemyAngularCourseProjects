@@ -16,7 +16,7 @@
         <div ngbDropdownMenu aria-labelledby="dropdown">
           <button ngbDropdownItem (click)="onAddToShoppingList()">To Shopping List</button>
           <button ngbDropdownItem [routerLink]="['edit']">Edit Recipe</button>
-          <button ngbDropdownItem>Delete Recipe</button>
+          <button ngbDropdownItem (click)="onDelete()">Delete Recipe</button>
         </div>
       </div>
     </div>

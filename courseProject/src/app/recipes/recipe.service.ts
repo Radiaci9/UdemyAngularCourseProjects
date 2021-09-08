@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
@@ -8,6 +9,7 @@ import { Recipe } from './recipe.model';
   providedIn: 'root'
 })
 export class RecipeService {
+  recipesChanged = new Subject<Recipe[]>();
   recipes: Recipe[] = [
     new Recipe(
       'A test recipe 1',
@@ -30,7 +32,7 @@ export class RecipeService {
     )
   ];
 
-  constructor(private slService: ShoppingListService, private router: Router) { }
+  constructor(private slService: ShoppingListService) { }
 
   getRecipes() {
     return this.recipes.slice();
@@ -42,11 +44,25 @@ export class RecipeService {
   }
   
   getRecipeById (id: string) {
-    const recipe = this.recipes.find((recipe) => recipe.id === id);
-
-    if (!recipe) {
-      this.router.navigate(["../"]);
-    }
-    return recipe;
+    return this.recipes.find((recipe) => recipe.id === id);
   }
+
+  addRecipe (recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+  
+  updateRecipe (updatedRecipe: Recipe) {
+    this.recipes = this.recipes.map((recipe) => {
+      if (recipe.id === updatedRecipe.id) return updatedRecipe;
+      return recipe;
+    })
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipeById (id: string) {
+    this.recipes = this.recipes.filter((recipe) => recipe.id !== id);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+  
 }
